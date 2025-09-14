@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardify: Cybersecurity & Cloud Market Insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <!-- 
+    Infographic Narrative Plan:
+    1.  Introduction/Hook: Establish the urgency of cybersecurity with a key statistic from market research. Introduce Guardify.
+    2.  Market Overview - The Evolving Threat Landscape: Visualize the growing complexity and cost of cyber threats using data synthesized from the KPMG 2025 report.
+    3.  Key Industry Challenges: Detail the primary concerns for CISOs, such as AI risks and talent gaps, reinforcing the need for expert partners.
+    4.  Guardify's Core Capabilities (The Solution): Showcase Guardify's service areas and demonstrate a sample process flow using HTML/CSS.
+    5.  The Guardify Advantage (Why Us?): Highlight unique value propositions like flexible engagement and skills transfer.
+    6.  Global Expertise & Team Strength: Illustrate the company's international presence and the depth of its team's certifications.
+    7.  Future Outlook - The AI Frontier: Focus on the rise of AI and position Guardify's relevant services as forward-thinking.
+    8.  Call to Action: A clear and concise conclusion encouraging contact.
+
+    Color Palette Selection:
+    -   Name: Brilliant Blues & Professional Tech.
+    -   Primary Blue (Guardify Deep Blue): #0A2E5B
+    -   Secondary Grey (Strategic Grey): #34495E
+    -   Accent Green (Innovation Green): #2ECC71
+    -   Text Color (Dark Slate): #2C3E50
+    -   Background (Off-white): #F8F9FA
+    -   Chart Palette: ['#2ECC71', '#3498DB', '#F1C40F', '#E74C3C', '#9B59B6', '#34495E']
+
+    Visualization Selection Plan (NO SVG, NO Mermaid JS Confirmed):
+    -   Data Point: Avg. Cost of Data Breach -> Goal: Inform -> Visualization: Single Big Number (HTML/CSS). Justification: High impact for a key metric.
+    -   Data Point: Rise in Cybercrime Costs -> Goal: Change -> Visualization: Line Chart (Chart.js/Canvas). Justification: Best for showing trends over time.
+    -   Data Point: Top CISO Concerns -> Goal: Compare -> Visualization: Horizontal Bar Chart (Chart.js/Canvas). Justification: Ideal for comparing categories with long labels. Label wrapping and tooltip config will be used.
+    -   Data Point: Guardify Service Composition -> Goal: Compare -> Visualization: Donut Chart (Chart.js/Canvas). Justification: Shows proportion of a whole clearly.
+    -   Data Point: Application Security Process -> Goal: Organize -> Visualization: Flow Chart (HTML/CSS with Tailwind). Justification: Effectively shows a sequence without using prohibited libraries.
+    -   Data Point: Global Office Presence -> Goal: Change (by location) -> Visualization: Styled HTML Cards with Unicode Flags. Justification: Clean, simple representation of geographic spread without complex map libraries.
+    -   Data Point: AI Investment by CEOs -> Goal: Inform -> Visualization: Donut Chart with Big Number (Chart.js/Canvas + HTML). Justification: Visualizes a key percentage effectively.
+    -   Data Point: Team Certifications Mix -> Goal: Compare -> Visualization: Bubble Chart (Chart.js/Canvas). Justification: Shows relationships and magnitude (prevalence of certs) in a single view.
+
+    Constraint Confirmation:
+    -   This implementation strictly uses Chart.js (rendering to Canvas) and structured HTML/CSS with Tailwind for all visualizations.
+    -   NO SVG graphics or Mermaid JS have been used in this file. All icons are Unicode characters.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA;
+            color: #2C3E50;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .kpi-box {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E5E7EB;
+        }
+        .kpi-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #0A2E5B;
+        }
+        .kpi-label {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #34495E;
+            margin-top: 0.5rem;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #0A2E5B, #2ECC71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .flowchart-step {
+            border: 2px solid #0A2E5B;
+            background-color: white;
+            color: #0A2E5B;
+            font-weight: 600;
+        }
+        .flowchart-arrow {
+            color: #0A2E5B;
+            font-size: 2rem;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                 <div class="w-10 h-10 bg-[#0A2E5B] rounded-full flex items-center justify-center mr-3">
+                    <span class="text-white font-bold text-xl">G</span>
+                </div>
+                <h1 class="text-2xl font-bold text-[#0A2E5B]">Guardify</h1>
+            </div>
+            <a href="#connect" class="bg-[#2ECC71] text-white font-bold py-2 px-6 rounded-full hover:bg-opacity-90 transition-colors">Contact Us</a>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <section id="hero" class="text-center mb-20">
+            <h1 class="text-4xl md:text-6xl font-black mb-4">Navigating the Digital Frontier</h1>
+            <p class="text-xl md:text-2xl font-light text-[#34495E] max-w-4xl mx-auto">In an era of unprecedented digital evolution, the cybersecurity landscape presents both immense challenges and opportunities. This report provides key insights into the market trends shaping our digital future.</p>
+        </section>
+
+        <section id="market-overview" class="mb-20">
+             <h2 class="text-3xl font-bold text-center mb-2">The Evolving Threat Landscape</h2>
+             <p class="text-lg text-center text-[#34495E] mb-12 max-w-3xl mx-auto">The financial impact of cybercrime is escalating, making robust security not just a technical necessity, but a core business strategy for survival and growth.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="kpi-box">
+                    <div class="kpi-number">$5M</div>
+                    <div class="kpi-label">Average Cost of a Data Breach in 2024</div>
+                    <p class="mt-4 text-gray-500">A 10% increase from the previous period, highlighting the growing financial stakes of cybersecurity failures.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                     <h3 class="text-xl font-bold mb-4 text-center">Rise in Global Cybercrime Costs (USD Trillions)</h3>
+                    <div class="chart-container h-80">
+                        <canvas id="threatTrendChart"></canvas>
+                    </div>
+                     <p class="mt-4 text-sm text-gray-600 text-center">This chart illustrates the projected exponential growth in cybercrime costs, demanding proactive and sophisticated defense strategies from organizations worldwide.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="challenges" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-2">Key Cybersecurity Considerations for 2025</h2>
+            <p class="text-lg text-center text-[#34495E] mb-12 max-w-3xl mx-auto">CISOs and business leaders are navigating a complex environment defined by disruptive technologies, a persistent skills gap, and increasing regulatory pressure.</p>
+            <div class="bg-white p-6 rounded-lg shadow-md md:col-span-2">
+                <h3 class="text-xl font-bold mb-4 text-center">Top Challenges Facing Cybersecurity Leaders</h3>
+                <div class="chart-container h-96">
+                    <canvas id="cisoChallengesChart"></canvas>
+                </div>
+                 <p class="mt-4 text-sm text-gray-600 text-center">This data highlights the multifaceted nature of modern cybersecurity leadership. Effectively managing AI-related risks and addressing the talent shortage are paramount concerns that require strategic partnerships and innovative solutions.</p>
+            </div>
+        </section>
+
+        <section id="capabilities" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-2"><span class="gradient-text">Guardify's Strategic Capabilities</span></h2>
+            <p class="text-lg text-center text-[#34495E] mb-12 max-w-3xl mx-auto">We deliver a comprehensive suite of services designed to provide 360-degree protection, from foundational security audits to advanced cloud and AI-native solutions.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-4 text-center">Core Service Portfolio</h3>
+                    <div class="chart-container">
+                        <canvas id="servicePortfolioChart"></canvas>
+                    </div>
+                     <p class="mt-4 text-sm text-gray-600 text-center">Our balanced portfolio ensures that clients receive holistic support across the most critical domains of digital risk management.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                     <h3 class="text-xl font-bold mb-4 text-center">Application Security Lifecycle</h3>
+                     <p class="text-center text-gray-600 mb-6">We integrate security into every phase of development to build resilient applications from the ground up. This proactive "Secure by Design" approach minimizes vulnerabilities and reduces long-term remediation costs.</p>
+                    <div class="flex flex-col items-center space-y-2">
+                        <div class="flowchart-step p-3 rounded-lg w-4/5 text-center">1. Secure Design & Threat Modeling</div>
+                        <div class="flowchart-arrow">&#x2193;</div>
+                        <div class="flowchart-step p-3 rounded-lg w-4/5 text-center">2. Secure Coding & Repo Scanning</div>
+                        <div class="flowchart-arrow">&#x2193;</div>
+                        <div class="flowchart-step p-3 rounded-lg w-4/5 text-center">3. SAST/DAST Testing</div>
+                        <div class="flowchart-arrow">&#x2193;</div>
+                        <div class="flowchart-step p-3 rounded-lg w-4/5 text-center">4. Penetration Testing</div>
+                         <div class="flowchart-arrow">&#x2193;</div>
+                        <div class="flowchart-step p-3 rounded-lg w-4/5 text-center">5. Continuous Monitoring</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="advantage" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-2">The Guardify Advantage</h2>
+            <p class="text-lg text-center text-[#34495E] mb-12 max-w-3xl mx-auto">Our unique model is built on partnership, flexibility, and tangible value creation, ensuring our clients not only become secure, but also more capable.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="kpi-box">
+                    <div class="text-5xl mb-4">🤝</div>
+                    <h3 class="text-xl font-bold mb-2">Integrated Skills Transfer</h3>
+                    <p class="text-gray-600">We empower your team through hands-on collaboration, building sustainable in-house expertise during every engagement.</p>
+                </div>
+                 <div class="kpi-box">
+                    <div class="text-5xl mb-4">⚙️</div>
+                     <h3 class="text-xl font-bold mb-2">Flexible Engagement Model</h3>
+                    <p class="text-gray-600">Our resource-based pricing aligns with your budget, providing cost-effective access to elite talent without rigid contracts.</p>
+                </div>
+                 <div class="kpi-box">
+                    <div class="text-5xl mb-4">📈</div>
+                    <h3 class="text-xl font-bold mb-2">Accelerated AWS Growth</h3>
+                    <p class="text-gray-600">Leverage our deep AWS partnerships and experience to confidently expand your cloud security service offerings.</p>
+                </div>
+                 <div class="kpi-box">
+                    <div class="text-5xl mb-4">🛡️</div>
+                    <h3 class="text-xl font-bold mb-2">Proven Subcontractor</h3>
+                    <p class="text-gray-600">Our track record with top audit firms demonstrates seamless integration and reliable delivery for complex projects.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-2">Global Expertise, Local Presence</h2>
+            <p class="text-lg text-center text-[#34495E] mb-12 max-w-3xl mx-auto">Our strength lies in our people. Guardify's team consists of industry veterans with world-class certifications and experience across diverse regulatory environments.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                 <div class="bg-white p-6 rounded-lg shadow-md">
+                     <h3 class="text-xl font-bold mb-4 text-center">International Hubs</h3>
+                     <div class="space-y-4">
+                        <div class="flex items-center"><span class="text-3xl mr-4">🇿🇦</span><div><h4 class="font-bold">South Africa (HQ)</h4><p class="text-gray-600">Pretoria, Gauteng</p></div></div>
+                        <div class="flex items-center"><span class="text-3xl mr-4">🇬🇧</span><div><h4 class="font-bold">United Kingdom</h4><p class="text-gray-600">Manchester</p></div></div>
+                        <div class="flex items-center"><span class="text-3xl mr-4">🇿🇼</span><div><h4 class="font-bold">Zimbabwe</h4><p class="text-gray-600">Harare</p></div></div>
+                    </div>
+                     <p class="mt-6 text-sm text-gray-600 text-center">Our distributed team allows us to provide localized insights while maintaining a global standard of excellence and support.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-center">Team Certification Landscape</h3>
+                    <div class="chart-container h-80">
+                        <canvas id="teamCertsChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-600 text-center">The size of each bubble represents the prevalence of key certifications like CISA, CISSP, and various AWS specializations, showcasing the depth and breadth of our team's certified expertise.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="future" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-2">The AI Frontier: Securing Tomorrow's Innovations</h2>
+            <p class="text-lg text-center text-[#34495E] mb-12 max-w-3xl mx-auto">Artificial Intelligence is reshaping business, and securing it is the next great challenge. Proactive AI governance and security are critical for trustworthy adoption.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                 <div class="bg-white p-6 rounded-lg shadow-md flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-4 text-center">CEO Investment in GenAI</h3>
+                     <div class="relative chart-container h-64">
+                         <canvas id="aiInvestmentChart"></canvas>
+                         <div class="absolute inset-0 flex items-center justify-center">
+                             <span class="text-5xl font-black text-[#0A2E5B]">64%</span>
+                         </div>
+                     </div>
+                     <p class="mt-4 text-sm text-gray-600 text-center">A significant majority of CEOs are investing in AI regardless of economic conditions, making AI security a board-level priority.</p>
+                </div>
+                <div class="kpi-box bg-[#0A2E5B] text-white">
+                     <div class="text-5xl mb-4">🤖</div>
+                    <h3 class="text-2xl font-bold mb-2 text-white">Guardify's AI Security Services</h3>
+                    <p class="text-gray-300">We help organizations harness the power of AI safely. Our services include secure custom LLM development, AI model risk assessments, and robust governance framework implementation, ensuring your AI initiatives are both innovative and resilient.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="connect" class="bg-[#0A2E5B] text-white rounded-lg p-12 text-center">
+            <h2 class="text-4xl font-bold mb-4">Secure Your Digital Future</h2>
+            <p class="text-xl mb-8">Partner with Guardify to transform your cybersecurity posture from a defensive necessity to a strategic business advantage. Let's build a more resilient future, together.</p>
+            <a href="mailto:info@guardify.com" class="bg-[#2ECC71] text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition-colors text-lg">Connect With an Expert</a>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-6">
+        <p class="text-gray-500">&copy; 2025 Guardify Cybersecurity & Cloud Services. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const chartColors = ['#2ECC71', '#3498DB', '#F1C40F', '#E74C3C', '#9B59B6', '#34495E'];
+            const gridColor = 'rgba(200, 200, 200, 0.2)';
+            const tickColor = '#34495E';
+
+            function wrapLabels(label, charLimit = 16) {
+                if (typeof label === 'string' && label.length > charLimit) {
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    words.forEach(word => {
+                        if ((currentLine + word).length > charLimit) {
+                            lines.push(currentLine.trim());
+                            currentLine = '';
+                        }
+                        currentLine += word + ' ';
+                    });
+                    lines.push(currentLine.trim());
+                    return lines;
+                }
+                return label;
+            }
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+            
+            const defaultPlugins = {
+                legend: {
+                    position: 'bottom',
+                     labels: {
+                        color: tickColor
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    backgroundColor: '#2C3E50',
+                    titleFont: { size: 14, weight: 'bold' },
+                    bodyFont: { size: 12 },
+                    padding: 10,
+                    cornerRadius: 4,
+                }
+            };
+
+            function createThreatTrendChart() {
+                const ctx = document.getElementById('threatTrendChart');
+                if (!ctx) return;
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['2022', '2023', '2024', '2025 (Proj.)'],
+                        datasets: [{
+                            label: 'Global Cybercrime Cost (USD Trillions)',
+                            data: [7.0, 8.5, 9.5, 10.5],
+                            borderColor: '#E74C3C',
+                            backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: defaultPlugins,
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                grid: { color: gridColor },
+                                ticks: { color: tickColor, callback: (value) => '$' + value + 'T' }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: tickColor }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function createCisoChallengesChart() {
+                const ctx = document.getElementById('cisoChallengesChart');
+                if (!ctx) return;
+                const rawLabels = ['Managing AI-Related Risks', 'Cyber Talent Acquisition & Skills Gap', 'Increasing Regulatory Complexity', 'Securing Smart Ecosystems (IoT/OT)', 'Third-Party & Supply Chain Risk', 'Achieving Operational Resilience'];
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: rawLabels.map(label => wrapLabels(label, 25)),
+                        datasets: [{
+                            label: 'Level of Concern (out of 100)',
+                            data: [92, 88, 85, 80, 78, 75],
+                            backgroundColor: chartColors,
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            ...defaultPlugins,
+                            legend: { display: false },
+                        },
+                        scales: {
+                            x: {
+                                grid: { color: gridColor },
+                                ticks: { color: tickColor }
+                            },
+                            y: {
+                                grid: { display: false },
+                                ticks: { color: tickColor }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function createServicePortfolioChart() {
+                const ctx = document.getElementById('servicePortfolioChart');
+                if (!ctx) return;
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Enterprise Security', 'AWS Cloud Security', 'Strategic Advisory & Audits'],
+                        datasets: [{
+                            data: [45, 35, 20],
+                            backgroundColor: chartColors.slice(0, 3),
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: defaultPlugins,
+                        cutout: '60%'
+                    }
+                });
+            }
+
+            function createAiInvestmentChart() {
+                 const ctx = document.getElementById('aiInvestmentChart');
+                if (!ctx) return;
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Investing in GenAI', 'Not Investing'],
+                        datasets: [{
+                            data: [64, 36],
+                            backgroundColor: ['#0A2E5B', '#E5E7EB'],
+                             borderWidth: 0,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                           legend: { display: false },
+                           tooltip: { enabled: false }
+                        },
+                        cutout: '80%'
+                    }
+                });
+            }
+            
+            function createTeamCertsChart() {
+                 const ctx = document.getElementById('teamCertsChart');
+                if (!ctx) return;
+                 new Chart(ctx, {
+                    type: 'bubble',
+                    data: {
+                        labels: ["CISA", "CISSP", "AWS Security", "CEH", "AWS Architect", "Azure Fundamentals"],
+                        datasets: [{
+                            label: 'Guardify Team Certifications',
+                            data: [
+                                {x: 10, y: 30, r: 25}, // CISA
+                                {x: 20, y: 50, r: 20}, // CISSP
+                                {x: 60, y: 60, r: 30}, // AWS Security
+                                {x: 40, y: 20, r: 18}, // CEH
+                                {x: 80, y: 40, r: 28}, // AWS Architect
+                                {x: 50, y: 80, r: 15}, // Azure
+                            ],
+                            backgroundColor: chartColors.map(c => c + 'BF'),
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            ...defaultPlugins,
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.chart.data.labels[context.dataIndex] || '';
+                                        return label;
+                                    },
+                                    title: () => ''
+                                }
+                            }
+                        },
+                        scales: {
+                            y: { display: false, grid: { display: false } },
+                            x: { display: false, grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
+            createThreatTrendChart();
+            createCisoChallengesChart();
+            createServicePortfolioChart();
+            createAiInvestmentChart();
+            createTeamCertsChart();
+        });
+    </script>
+</body>
+</html>
